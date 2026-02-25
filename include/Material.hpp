@@ -1,5 +1,4 @@
-#ifndef MATERIAL_HPP
-#define MATERIAL_HPP
+#pragma once
 
 class Material {
     private :
@@ -12,5 +11,3 @@ class Material {
         float heatCapacity() const;
         float ThermalDiffusity() const;
 };
-
-#endif
