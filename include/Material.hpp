@@ -6,6 +6,8 @@ class Material {
 
     public :
         Material(float k, float kho, float c) : k(k), kho(kho), c(c) {}
+
+        //GETTERS
         float conductivity() const { return k; }
         float density() const { return kho; }
         float heatCapacity() const { return c; }
