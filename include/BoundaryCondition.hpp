@@ -12,7 +12,7 @@ class BoundaryCondition{
     public:
     BoundaryCondition(Side side); // Constructor
     virtual ~BoundaryCondition()= default; // Virtual Destructor
-    virtual void apply(std::vector<float> &T, std::int nx, std::int ny)=0; // pure virtual function
+    virtual void apply(std::vector<float> &T, int nx, int ny)=0; // pure virtual function
     Side getSide() const { return side; } 
 
 };
