@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 #include <cmath> // sqrt() & pow()
 
 class Point_2D {

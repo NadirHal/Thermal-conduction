@@ -1,5 +1,4 @@
 #pragma once // To avoid having multiples inclusions
-#include <iostream>
 #include <vector>
 #include "Side.hpp"
 
