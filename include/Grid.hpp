@@ -1,29 +1,32 @@
-#pragma once
+    #pragma once
 
 class Grid {
     private :
-        int nx, ny;     // number of cells
-        float dx, dy;   // dimensions of a cell
+        int _nx, _ny;    // number of cells 
+        float _dx, _dy;   // dimensions of a cell
 
     public :
-        Grid(int _nx, int _ny, float _dx, float _dy) : nx(_nx), ny(_ny), dx(_dx), dy(_dy) {}
+        
+        Grid(int nx, int ny, float dx, float dy) 
+            : _nx(nx), _ny(ny), _dx(dx), _dy(dy) {}
 
-        // GETTERS
-        int nx() const { return nx; }
-        int ny() const { return ny; }
-        float dx() const { return dx; }
-        float dy() const { return dy; }
+        
+        int nx() const { return _nx; }
+        int ny() const { return _ny; }
+        float dx() const { return _dx; }
+        float dy() const { return _dy; }
 
         // FUNCTIONS
         int totalCells() const {
-            return nx * ny;
+            return _nx * _ny;
         }
 
         int index(int i, int j) const {
-            return i * ny + j;
+            
+            return i * _ny + j;
         }
 
         bool isValid(int i, int j) const {
-            return i >= 0 && i < nx && j >= 0 && j < ny;
+            return i >= 0 && i < _nx && j >= 0 && j < _ny;
         }
 };
