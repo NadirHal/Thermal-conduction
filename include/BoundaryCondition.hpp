@@ -5,7 +5,7 @@
 
 class BoundaryCondition{
     protected:
-        Side side; // I have to define in another file the enum Side.
+        Side side; 
     
 
     public:
