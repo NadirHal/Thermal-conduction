@@ -6,6 +6,7 @@ To start the simualation you'll need SFML Library :
 
   cmake -B build -DCMAKE_BUILD_TYPE=Release \
     -DSFML_DIR=$(brew --prefix sfml)/lib/cmake/SFML
+    
   cmake --build build
   ./build/thermal_sim
   
