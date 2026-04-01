@@ -1,19 +1,16 @@
 #pragma once
 #include "BoundaryCondition.hpp"
-#include <vector>
 
+// Robin (convection) boundary condition
+// Stores lambda and dx internally so it matches the base class interface
 class RobinBC : public BoundaryCondition {
-private:
-    float h_conv;
-    float T_amb;
+    private:
+        float h_conv;   // Convection coefficient [W/(m²·K)]
+        float T_amb;    // Ambient temperature [°C or K]
+        float lambda;   // Material conductivity [W/(m·K)]
+        float dx;       // Cell size [m]
 
-public:
-    // Constructeur
-    RobinBC(Side side, float h_conv, float T_amb);
-
-    // Surcharge principale avec paramètres physiques
-    void apply(std::vector<float>& T, int nx, int ny, float lambda, float dx);
-
-    // Surcharge de l'interface de base (implémentation obligatoire si virtuelle pure)
-    void apply(std::vector<float>& T, int nx, int ny) override;
+    public:
+        RobinBC(Side side, float h_conv, float T_amb, float lambda, float dx);
+        void apply(std::vector<float>& T, int nx, int ny) override;
 };

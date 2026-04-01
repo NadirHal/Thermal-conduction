@@ -1,17 +1,15 @@
-#pragma once // To avoid having multiples inclusions
+#pragma once
 #include <vector>
 #include "Side.hpp"
 
+class BoundaryCondition {
+protected:
+    Side side;
 
-class BoundaryCondition{
-    protected:
-        Side side; 
-    
+public:
+    explicit BoundaryCondition(Side s) : side(s) {}
+    virtual ~BoundaryCondition() = default;
 
-    public:
-        BoundaryCondition(Side s):side(s){}; // Constructor + inline definition
-        virtual ~BoundaryCondition()= default; // Virtual Destructor
-        virtual void apply(std::vector<float> &T, int nx, int ny)=0; // pure virtual function
-        Side getSide() const { return side; } 
-
+    virtual void apply(std::vector<float>& T, int nx, int ny) = 0;
+    Side getSide() const { return side; }
 };

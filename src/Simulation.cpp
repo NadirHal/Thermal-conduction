@@ -1,4 +1,4 @@
-#include "Simulation.hpp"
+#include "../include/Simulation.hpp"
 #include <stdexcept>
 #include <algorithm>
 
@@ -7,12 +7,15 @@ Simulation::Simulation(int nx, int ny, float cellSize, Material material, float 
       material(material),
       calculator(dt),
       temperature(nx * ny, 0.0f),
-      current_time(0.0f), 
+      current_time(0.0f),
       run_time(0.0f)
 {
-    // Vérification de la stabilité (CFL) dès la construction
-    if (!calculator.isStable(grid, material)) {
-        throw std::runtime_error("Erreur : Le pas de temps (dt) viole la condition CFL !");
+    // Check stability (CFL) at construction time
+    if (!calculator.isStable(grid, this->material)) {
+        float dt_max = calculator.maxStableTimeStep(grid, this->material);
+        throw std::runtime_error(
+            "Time step dt=" + std::to_string(dt) +
+            " violates CFL condition! dt_max=" + std::to_string(dt_max));
     }
 }
 
@@ -25,26 +28,26 @@ void Simulation::setInitialTemperature(float T) {
 }
 
 void Simulation::setRegionTemperature(int i0, int i1, int j0, int j1, float T) {
-    for (int i = i0; i <= i1; ++i) {
-        for (int j = j0; j <= j1; ++j) {
+    for (int i = i0; i <= i1; ++i)
+        for (int j = j0; j <= j1; ++j)
             temperature[grid.index(i, j)] = T;
-        }
-    }
 }
 
-void Simulation::start(int numSteps) {
-    float dt = calculator.getDt(); // On récupère le dt via le calculator
+bool Simulation::step(int numSteps) {
+    const float dt = calculator.getDt();
 
     for (int n = 0; n < numSteps; ++n) {
-        // 1. Calcul du stencil sur l'intérieur (Physique)
+        // 1.Update interior points (explicit Euler)
         calculator.calcul_temperature(grid, material, temperature);
 
-        // 2. Application des conditions aux limites (Contraintes)
-        for (auto& bc : boundaryConditions) {
+        // 2. Apply boundary conditions
+        for (auto& bc : boundaryConditions)
             bc->apply(temperature, grid.nx(), grid.ny());
-        }
 
+        // 3. Time advancement (fixed : was += 0.0f)
         current_time += dt;
     }
+
     run_time = current_time;
+    return true;
 }
