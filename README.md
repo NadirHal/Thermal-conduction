@@ -5,7 +5,7 @@ Version 1.0
 To start the simualation you'll need SFML Library :
 
   cmake -B build -DCMAKE_BUILD_TYPE=Release \
-    -DSFML_DIR=$(brew --prefix sfml)/lib/cmake/SFML
+    -DSFML_DIR=$(brew --prefix sfml)/lib/cmake/SFML (pour MacOS)
     
   cmake --build build
   
